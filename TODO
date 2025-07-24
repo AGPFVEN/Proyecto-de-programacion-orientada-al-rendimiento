@@ -1,0 +1,14 @@
+Por hacer:
+      - common:
+            - proargs
+            - binaryIO
+      - aos
+      - soa
+
+Done:
+      - Project set up
+
+Haciendo:
+      - common:
+            - proargs:
+                  - Obtain args (with set up)

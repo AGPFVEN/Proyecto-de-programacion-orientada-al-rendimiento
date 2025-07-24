@@ -1,0 +1,7 @@
+# vscode results at building project
+build/
+
+# CMake resutls at building project
+_deps/
+CMakeFiles/
+CMakeCache.txt
