@@ -1,7 +1,11 @@
-# vscode results at building project
+# Results at building project
 build/
+build-vscode/
 
 # CMake resutls at building project
 _deps/
 CMakeFiles/
 CMakeCache.txt
+
+# Ignore data for tests
+I&O/

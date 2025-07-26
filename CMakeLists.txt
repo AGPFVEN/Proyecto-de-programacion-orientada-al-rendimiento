@@ -29,9 +29,42 @@ FetchContent_MakeAvailable(GSL)
 # Run clang-tidy on the whole source tree
 # Note this will slow down compilation.
 # You may temporarily disable but do not forget to enable again.
-set(CMAKE_CXX_CLANG_TIDY clang-tidy;
--format-style=file;
--header-filter=.;)
+set(CMAKE_CXX_CLANG_TIDY
+    clang-tidy
+    -format-style=file
+    -header-filter=.
+)
+
+# Buscar clang-format en el sistema
+find_program(CLANG_FORMAT_BIN clang-format)
+
+if(CLANG_FORMAT_BIN)
+  message(STATUS "Found clang-format: ${CLANG_FORMAT_BIN}")
+
+  # Busca todos los archivos cpp y hpp del proyecto (excluye build/)
+  file(GLOB_RECURSE PROJECT_SOURCES
+       ${CMAKE_SOURCE_DIR}/*.cpp
+       ${CMAKE_SOURCE_DIR}/*.hpp
+       ${CMAKE_SOURCE_DIR}/*.h)
+
+    # Filtra para excluir el directorio build
+    foreach(file ${PROJECT_SOURCES})
+        string(FIND "${file}" "${CMAKE_BINARY_DIR}" found)
+        if(NOT ${found} EQUAL -1)
+            list(REMOVE_ITEM PROJECT_SOURCES ${file})
+        endif()
+    endforeach()
+
+  # Crea un target para verificar el formato
+    add_custom_target(check-format ALL
+    COMMAND ${CLANG_FORMAT_BIN} --dry-run --Werror -style=file ${PROJECT_SOURCES}
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+    COMMENT "Checking code style with clang-format"
+    )
+
+else()
+  message(WARNING "clang-format not found! Skipping format check.")
+endif()
 
 # All includes relative to source tree root.
 include_directories (PUBLIC .)
