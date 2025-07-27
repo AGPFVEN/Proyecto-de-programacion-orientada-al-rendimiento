@@ -57,9 +57,9 @@ if(CLANG_FORMAT_BIN)
 
   # Crea un target para verificar el formato
     add_custom_target(check-format ALL
-    COMMAND ${CLANG_FORMAT_BIN} --dry-run --Werror -style=file ${PROJECT_SOURCES}
-    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-    COMMENT "Checking code style with clang-format"
+        COMMAND ${CLANG_FORMAT_BIN} --dry-run --Werror -style=file ${PROJECT_SOURCES}
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+        COMMENT "Checking code style with clang-format"
     )
 
 else()
