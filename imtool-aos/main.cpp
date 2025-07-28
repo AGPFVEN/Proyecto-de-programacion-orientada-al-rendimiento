@@ -4,10 +4,13 @@
 #include <span>
 
 int main(int argc, char * argv[]) {
-  // check_arguments(argc, argv);
-  // std::cout << "arg num: " << argc << "\n";
-  // for (auto * arg : std::span(argv, static_cast<std::size_t>(argc))) { std::cout << arg << "\n";
-  // }
-  check_arguments(argc, &argv);
+  // Construct arguments as a vector
+  // it is done becuase of the clang-format and tidy does not allow pointer arithmetic,
+  // so I need to use vectors of strings instead
+  std::vector<std::string_view> const args(argv, argv + argc);
+
+  // Validation for arguments
+  check_arguments(args);
+
   return 0;
 }

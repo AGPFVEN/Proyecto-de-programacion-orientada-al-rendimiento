@@ -7,7 +7,7 @@
     "program": "${workspaceFolder}/build/imtool-aos/imtool-aos",
     "cwd": "${workspaceFolder}",
     "MIMode": "gdb",
-    "args": ["testing", "yet", "another"],
+    "args": ["testing", "heh"],
     "setupCommands": [
         {
             "description": "Enable pretty-printing for gdb",
