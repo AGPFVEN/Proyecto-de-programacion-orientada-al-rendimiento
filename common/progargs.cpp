@@ -31,14 +31,13 @@ int check_arguments(std::vector<std::string_view> const & argss) {
   }
 
   // Check if arguments are valid for selected option
-  switch (argss[3]) {
-    case "info":
-      std::cout << "hh\n";
-      break;
-
-    default:
-      break;
+  if ((argss[3] == "info") && (argss.size() != 4)) {
+    // Check if the command info has more than 4 arguments
+    std::cout << "Error invalid number of extra arguments for info: ";
+    for (size_t i = 4; i < argss.size(); i++) { std::cout << "\"" << argss[i] << "\""; }
+    return -1;
   }
+
   return 1;
 
   std::cout << argss[1] << "\n";

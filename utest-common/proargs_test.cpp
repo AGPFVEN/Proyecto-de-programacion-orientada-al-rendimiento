@@ -34,3 +34,23 @@ TEST(ProgArgsTest, FourRandomArgsGiven) {
 
   ASSERT_EQ(check_arguments(supossed_args), -1);
 }
+
+TEST(ProgArgsTest, incorrectInfoCase) {
+  std::vector<std::string_view> const supossed_args = {"imtool", "photo.ppm", "output.ppm", "info",
+                                                       "1"};
+
+  ASSERT_EQ(check_arguments(supossed_args), -1);
+}
+
+TEST(ProgArgsTest, anotherIncorrectInfoCase) {
+  std::vector<std::string_view> const supossed_args = {"imtool", "photo.ppm", "output.ppm",
+                                                       "info",   "1",         "2"};
+
+  ASSERT_EQ(check_arguments(supossed_args), -1);
+}
+
+TEST(ProgArgsTest, CorrectInfoCase) {
+  std::vector<std::string_view> const supossed_args = {"imtool", "photo.ppm", "output.ppm", "info"};
+
+  ASSERT_EQ(check_arguments(supossed_args), 1);
+}
