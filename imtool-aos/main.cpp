@@ -10,7 +10,11 @@ int main(int argc, char * argv[]) {
   std::vector<std::string_view> const args(argv, argv + argc);
 
   // Validation for arguments
-  check_arguments(args);
+  int aux_result = check_arguments(args);
 
-  return 0;
+  if (aux_result != 1) { return aux_result; }
+
+  aux_result = 1;
+
+  return aux_result;
 }
