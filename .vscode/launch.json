@@ -7,7 +7,7 @@
     "program": "${workspaceFolder}/build/imtool-aos/imtool-aos",
     "cwd": "${workspaceFolder}",
     "MIMode": "gdb",
-    "args": ["testing", "heh"],
+    "args": ["I\\&O/input/deer-large.ppm", "I\\&O/output/output-vscodedebugger.ppm", "info"],
     "setupCommands": [
         {
             "description": "Enable pretty-printing for gdb",
