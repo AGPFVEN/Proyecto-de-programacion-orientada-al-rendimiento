@@ -11,21 +11,6 @@ static constexpr int MIN_ARGUMENTS_SIZE = 4;
 static constexpr int MIN_MAXLEVEL_LIMIT = 0;
 static constexpr int MAX_MAXLEVEL_LIMIT = 65535;
 
-using error_oscf = void (*)(std::string_view const operation_name_info,
-                            std::vector<std::string_view> const & argsss);
-using check_asc  = int (*)(std::string_view const operation_name_info,
-                          std::vector<std::string_view> const & argsss);
-
-// Struct to manage operation arguments
-struct operation_options {
-    std::string_view operation_name;
-    size_t args_size;
-    error_oscf error_on_size_check_function;  // Function to execute after spotting that the number
-                                              //  of arguments is not correcto for the operation
-    check_asc check_after_size_check;  // Function (that make additional checks) to execute after
-                                       //  spotting that the number of arguments is correct
-};
-
 // Function to excecute when the command is info but the number of arguments is wrong
 void eoscf_info_behaviour(std::string_view const operation_name_info,
                           std::vector<std::string_view> const & argsss) {
@@ -108,11 +93,21 @@ int casc_cutfreq_behaviour(std::string_view const operation_name_info,
   return 1;
 }
 
-void test(std::string_view const operation_name_info,
-          std::vector<std::string_view> const & argsss) {
-  std::cout << operation_name_info << "\n";
-  std::cout << argsss.size() << "\n";
-}
+// Function to execute after spotting that the number of arguments is not correcto for the operation
+using error_oscf = void (*)(std::string_view const operation_name_info,
+                            std::vector<std::string_view> const & argsss);
+
+// Function (to make additional checks) to execute after knowing the number of arguments is correct
+using check_asc = int (*)(std::string_view const operation_name_info,
+                          std::vector<std::string_view> const & argsss);
+
+// Struct to manage operation arguments
+struct operation_options {
+    std::string_view operation_name;
+    size_t args_size;
+    error_oscf error_on_size_check_function;
+    check_asc check_after_size_check;
+};
 
 // Array of all the operations with its arguments size
 static constexpr std::array<operation_options, 5> OPERATION_OPTIONS = {
@@ -131,7 +126,7 @@ int check_arguments(std::vector<std::string_view> const & argss) {
     return -1;
   }
 
-  // Loop the array (check if its valid and its size is correct)
+  // Loop the args (check if its valid and its size is correct)
   bool third_arg_is_valid = false;
   for (auto const & opt : OPERATION_OPTIONS) {
     // Check if the operation name exists

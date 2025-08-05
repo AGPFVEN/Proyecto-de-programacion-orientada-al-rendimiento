@@ -1,7 +1,7 @@
 # Add to this list all files related to common library
 add_library(common
     progargs.cpp
-    #binaryio .cpp
+    binaryio.cpp
 )
 
 # Incluir los directorios necesarios para encontrar archivos de encabezado
