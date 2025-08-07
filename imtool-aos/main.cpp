@@ -1,4 +1,5 @@
 #include "binaryio.hpp"
+#include "infoops.hpp"
 #include "progargs.hpp"
 
 #include <fstream>
@@ -19,6 +20,10 @@ int main(int argc, char * argv[]) {
   std::ifstream input;
   std::ofstream output;
   aux_result = open_files(args[1], input, args[2], output);
+  if (aux_result != 1) { return aux_result; }
+
+  // Check if command is info
+  aux_result = read_meta_data(input, output);
   if (aux_result != 1) { return aux_result; }
 
   // Close files

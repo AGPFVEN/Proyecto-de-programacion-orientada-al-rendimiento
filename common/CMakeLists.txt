@@ -2,6 +2,7 @@
 add_library(common
     progargs.cpp
     binaryio.cpp
+    infoops.cpp
 )
 
 # Incluir los directorios necesarios para encontrar archivos de encabezado
